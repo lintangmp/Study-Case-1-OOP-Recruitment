@@ -1,0 +1,27 @@
+/* style pop up*/
+#toast {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    background: #333;
+    color: #fff;
+    padding: 12px 20px;
+    border-radius: 10px;
+    opacity: 0;
+    transition: opacity 0.4s;
+    z-index: 9999;
+    font-size: 14px;
+}
+#toast.show { opacity: 1; }
+
+/* style button favorit*/
+.fav-btn {
+    border: 1px solid #6D5DA1;
+    border-radius: 4px;
+    background: none;
+    font-size: 1.2rem;
+    padding: 2px 8px;
+    cursor: pointer;
+    transition: border-color 0.2s;
+}
+.fav-btn.active { border-color: red; }

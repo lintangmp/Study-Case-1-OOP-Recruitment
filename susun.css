@@ -1,0 +1,48 @@
+.isi {
+  display: flex;
+  align-items: center; /* Sejajarkan tengah vertikal */
+  gap: 20px;           /* Jaradi */
+  padding: 20px;
+  background-color: lightcyan;
+}
+
+.isi img {
+  width: 100px;
+  height: auto;
+  border-radius: 8px;
+}
+
+.text h2 {
+  font-size: 24px;
+  line-height: 1;
+  font-family: Arial, Helvetica, sans-serif
+}
+.text p {
+  font-size: 18px;
+  max-width: 400px;
+  line-height: 0.5;
+  font-family: Arial, Helvetica, sans-serif
+}
+
+hr {
+    border: 1px solid teal
+}
+h4 {
+    margin-bottom: 1px;
+    color: teal;
+    font-family: Arial, Helvetica, sans-serif
+}
+
+h5 {
+    margin-bottom: 1px;
+    font-family: Arial, Helvetica, sans-serif
+}
+
+ul {
+    margin-top: 1px;
+    font-family: Arial, Helvetica, sans-serif
+}
+
+p {
+    font-family: Arial, Helvetica, sans-serif
+}
