@@ -1,0 +1,158 @@
+const API_KEY = "67a5262";
+let lastQuery = "";
+
+/*menampilkan pop up ketika menambahkan ke favorit*/
+function showToast(message) {
+    const toast = document.getElementById("toast");
+    toast.textContent = message;
+    toast.classList.add("show");
+    setTimeout(() => toast.classList.remove("show"), 2500);
+}
+
+/*get film yang ditambahkan ke favorit*/
+function getFavorites() {
+    return JSON.parse(localStorage.getItem("movieFavorites") || "[]");
+}
+
+/*cek apakah film sudah difavoritkan*/
+function isFavorite(id) {
+    return getFavorites().includes(id);
+}
+
+/*tambah atau hapus film dari favorit*/
+function toggleFavorite(id, title) {
+    let favs = getFavorites();
+    const btn = document.getElementById(`fav-${id}`);
+
+    if (favs.includes(id)) {
+        favs = favs.filter(f => f !== id);
+        localStorage.setItem("movieFavorites", JSON.stringify(favs));
+        btn.innerHTML = "🤍";
+        btn.classList.remove("active");
+        showToast(`💔 ${title} dihapus dari favorit`);
+    } else {
+        favs.push(id);
+        localStorage.setItem("movieFavorites", JSON.stringify(favs));
+        btn.innerHTML = "❤️";
+        btn.classList.add("active");
+        showToast(`❤️ ${title} ditambahkan ke favorit!`);
+    }
+}
+
+/*card yang menampilkan poster, judul, button detail, dan button tambah ke favorit*/
+function movieCard(movie) {
+    const fav = isFavorite(movie.imdbID);
+    return `
+        <div class="col-md-4">
+            <div class="card shadow-sm" style="background-color: #E6ECFF; border-radius: 20px; border: none; color: #333;">
+                <img src="${movie.Poster !== 'N/A' ? movie.Poster : 'https://via.placeholder.com/300x450?text=No+Poster'}" 
+                     class="card-img-top" alt="${movie.Title}" style="border-radius: 20px 20px 0 0; height: 300px; object-fit: cover;">
+                <div class="card-body">
+                    <h5>${movie.Title}</h5>
+                    <p>📅 ${movie.Year} ${movie.imdbRating ? `&nbsp; ⭐ ${movie.imdbRating}` : ""}</p>
+                    <div class="d-flex gap-2 align-items-center">
+                        <button onclick="getDetail('${movie.imdbID}')" class="btn btn-sm" style="border: 1px solid #6D5DA1; color: #6D5DA1;">
+                            + Lihat Detail
+                        </button>
+                        <button id="fav-${movie.imdbID}" onclick="toggleFavorite('${movie.imdbID}', '${movie.Title.replace(/'/g, "\\'")}')" class="fav-btn ${fav ? 'active' : ''}">
+                            ${fav ? '❤️' : '🤍'}
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    `;
+}
+
+/*untuk menampilkan film dengan rating tertinggi di halaman utama, API tidak bisa otomatis mengambilnya jadi dimasukkan ID film rating tertinggi di IMDb*/
+async function loadAllMovies() {
+    const topMovieIDs = [
+        "tt0111161", "tt0068646", "tt0071562", "tt0468569",
+        "tt0050083", "tt0108052", "tt0167260", "tt0110912",
+        "tt0060196", "tt0137523", "tt0816692", "tt1375666"
+    ];
+
+    const container = document.getElementById("movies");
+    container.innerHTML = `<p class="text-center">Loading...</p>`;
+    container.innerHTML = "";
+
+    for (const id of topMovieIDs) {
+        const res = await fetch(`https://www.omdbapi.com/?apikey=${API_KEY}&i=${id}`);
+        const movie = await res.json();
+        container.innerHTML += movieCard(movie);
+    }
+}
+
+/*function atau fitur mencari film berdasarkan title, if untuk validasi input*/
+function searchMovie() {
+    const query = document.getElementById("searchInput").value;
+    if (!query) return;
+    lastQuery = query;
+    document.getElementById("sectionTitle").style.display = "none";
+    showMovies(query);
+}
+
+/*function untuk menampilkan hasil search*/
+function showMovies(query) {
+    const container = document.getElementById("movies");
+    container.innerHTML = `<p class="text-center">Loading...</p>`;
+
+    fetch(`https://www.omdbapi.com/?apikey=${API_KEY}&s=${query}&type=movie`)
+        .then(res => res.json())
+        .then(data => {
+            if (data.Response === "False") {
+                container.innerHTML = `<p class="text-center">Film tidak ditemukan</p>`;
+                return;
+            }
+            container.innerHTML = "";
+            data.Search.forEach(movie => {
+                container.innerHTML += movieCard(movie);
+            });
+        });
+}
+
+/*function atau fitur melihat detail film*/
+function getDetail(id) {
+    const container = document.getElementById("movies");
+    fetch(`https://www.omdbapi.com/?apikey=${API_KEY}&i=${id}&plot=full`)
+        .then(res => res.json())
+        .then(data => {
+            const fav = isFavorite(id);
+            container.innerHTML = `
+                <div class="col-12">
+                    <div class="card shadow-sm p-4" style="background-color: #E6ECFF; border-radius: 20px; border: none; color: #333;">
+                        <div class="row">
+                            <div class="col-md-3">
+                                <img src="${data.Poster}" class="img-fluid" style="border-radius: 20px;">
+                            </div>
+                            <div class="col-md-9">
+                                <div class="d-flex align-items-center gap-2 mb-2">
+                                    <h3 class="mb-0">${data.Title} (${data.Year})</h3>
+                                    <button id="fav-${data.imdbID}" onclick="toggleFavorite('${data.imdbID}', '${data.Title.replace(/'/g, "\\'")}')" class="fav-btn ${fav ? 'active' : ''}">
+                                        ${fav ? '❤️' : '🤍'}
+                                    </button>
+                                </div>
+                                <p>🎭 <strong>Genre:</strong> ${data.Genre}</p>
+                                <p>🎬 <strong>Director:</strong> ${data.Director}</p>
+                                <p>👥 <strong>Actors:</strong> ${data.Actors}</p>
+                                <p>📝 <strong>Plot:</strong> ${data.Plot}</p>
+                                <p>⭐ <strong>IMDb:</strong> ${data.imdbRating}/10</p>
+                                <p>🍅 <strong>Rotten Tomatoes:</strong> ${data.Ratings[1]?.Value ?? 'N/A'}</p>
+                                <p>💰 <strong>Box Office:</strong> ${data.BoxOffice}</p>
+                                <button onclick="goBack()" class="btn btn-sm mt-2" style="border: 1px solid #6D5DA1; color: #6D5DA1;">← Kembali</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+        });
+}
+
+/*function untuk kembali ke halaman utama dengan klik button <- kembali*/
+function goBack() {
+    document.getElementById("sectionTitle").style.display = "block";
+    lastQuery = "";
+    loadAllMovies();
+}
+
+loadAllMovies();
