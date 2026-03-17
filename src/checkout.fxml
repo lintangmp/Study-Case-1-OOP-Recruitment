@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="191.0" prefWidth="300.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Label text="Checkout">
+         <font>
+            <Font name="System Bold" size="16.0" />
+         </font>
+      </Label>
+      <Label text="Total" />
+      <HBox prefHeight="19.0" prefWidth="270.0">
+         <children>
+            <TextField prefHeight="25.0" prefWidth="92.0">
+               <HBox.margin>
+                  <Insets right="20.0" />
+               </HBox.margin>
+            </TextField>
+            <Button mnemonicParsing="false" prefHeight="20.0" prefWidth="147.0" style="-fx-background-color: #DDE255; -fx-border-width: 1; -fx-border-color: #AAC93E; -fx-border-radius: 6; -fx-background-radius: 6;" text="Hitung Kembalian">
+               <HBox.margin>
+                  <Insets />
+               </HBox.margin>
+            </Button>
+         </children>
+      </HBox>
+      <Label layoutX="10.0" layoutY="27.0" text="Uang" />
+      <HBox layoutX="30.0" layoutY="71.0" prefHeight="19.0" prefWidth="270.0">
+         <children>
+            <TextField prefHeight="25.0" prefWidth="92.0">
+               <HBox.margin>
+                  <Insets right="20.0" />
+               </HBox.margin>
+            </TextField>
+         </children>
+      </HBox>
+      <Label text="Kembalian" />
+      <HBox layoutX="10.0" layoutY="45.0" prefHeight="19.0" prefWidth="270.0">
+         <children>
+            <TextField prefHeight="20.0" prefWidth="92.0">
+               <HBox.margin>
+                  <Insets right="20.0" />
+               </HBox.margin>
+            </TextField>
+            <Button mnemonicParsing="false" prefHeight="28.0" prefWidth="83.0" style="-fx-background-color: #6D8EC5; -fx-border-width: 1; -fx-border-color: #A4BDE0#A4BDE0; -fx-border-radius: 6; -fx-background-radius: 6;" text="Selesai">
+               <HBox.margin>
+                  <Insets left="28.0" />
+               </HBox.margin>
+            </Button>
+         </children>
+      </HBox>
+   </children>
+   <opaqueInsets>
+      <Insets />
+   </opaqueInsets>
+   <padding>
+      <Insets left="20.0" right="20.0" top="18.0" />
+   </padding>
+</VBox>

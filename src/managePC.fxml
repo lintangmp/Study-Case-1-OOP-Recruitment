@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.text.Font?>
+
+<SplitPane dividerPositions="0.5" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" orientation="VERTICAL" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.ManagePCController">
+  <items>
+    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="241.0" prefWidth="563.0" style="-fx-background-color: #F0F5FF;">
+         <children>
+            <Label layoutX="30.0" layoutY="14.0" text="Daftar Komputer">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Label>
+            <TableView layoutX="30.0" layoutY="39.0" prefHeight="147.0" prefWidth="537.0" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="30.0">
+              <columns>
+                <TableColumn prefWidth="194.66669273376465" text="Nama PC" />
+                <TableColumn prefWidth="139.3333282470703" text="Durasi" />
+                  <TableColumn prefWidth="202.66671752929688" text="Status" />
+              </columns>
+            </TableView>
+         </children></AnchorPane>
+    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="105.0" prefWidth="597.0" style="-fx-background-color: #F0F5FF;">
+         <children>
+            <TextField layoutX="273.0" layoutY="41.0" />
+            <TextField layoutX="37.0" layoutY="41.0" />
+            <Label layoutX="37.0" layoutY="24.0" text="PC Terpilih:" />
+            <Label layoutX="273.0" layoutY="24.0" text="Tambah Jam:" />
+            <Line endX="424.8333435058594" layoutX="131.0" layoutY="92.0" startX="-100.0" stroke="#a4bde0" AnchorPane.leftAnchor="30.5" AnchorPane.rightAnchor="30.5" />
+            <Button layoutX="430.0" layoutY="40.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="60.0" style="-fx-background-color: #DDE255; -fx-border-width: 1; -fx-border-color: #AAC93E; -fx-border-radius: 6; -fx-background-radius: 6;" text="Add" AnchorPane.rightAnchor="107.33333333333337" />
+            <TextField layoutX="37.0" layoutY="126.0" text="Rp " />
+            <Label layoutX="37.0" layoutY="109.0" text="Total Bayar:" />
+            <Button layoutX="273.0" layoutY="125.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="100.0" style="-fx-background-color: #6D8EC5; -fx-border-width: 1; -fx-border-color: #A4BDE0#A4BDE0; -fx-border-radius: 6; -fx-background-radius: 6;" text="Bayar" />
+            <Button fx:id="btnKembali" LayoutX="400.0" layoutY="125.0" mnemonicParsing="false" onAction="#handleKembali" prefWidth="100.0" style="-fx-background-color: #E4281F; -fx-border-width: 1; -fx-border-color: #FF6C1F; -fx-border-radius: 6; -fx-background-radius: 6;" text="Kembali" textAlignment="CENTER" />
+         </children></AnchorPane>
+  </items>
+</SplitPane>
